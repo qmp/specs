@@ -6,7 +6,7 @@
 Summary: System daemon for tracking users, sessions and seats
 Name: ConsoleKit
 Version: 0.4.2
-Release: 3%{?dist}
+Release: 2.rnd%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 URL: http://www.freedesktop.org/wiki/Software/ConsoleKit
@@ -15,6 +15,7 @@ Source0: http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-%{versio
 Patch0: ConsoleKit-0.4.1-upstart06.patch
 Patch1: 0001-systemd-make-sure-the-file-system-is-writable-before.patch
 Patch2: 0001-Revert-linux-Use-VT_WAITEVENT-if-available-to-avoid-.patch
+Patch3: ck-launch-session-fix.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: dbus >= %{dbus_version}
@@ -194,6 +195,9 @@ fi
 %doc %{_datadir}/doc/%{name}-%{version}/spec/*
 
 %changelog
+* Wed Dec 22 2010 build@rnd - 0.4.2-3.rnd
+- rebuilt
+
 * Wed Nov 17 2010 Lennart Poettering <lpoetter@redhat.com> - 0.4.2-3
 - revert VT_WAITEVENT logic, https://bugzilla.redhat.com/show_bug.cgi?id=643367
 
