@@ -89,6 +89,7 @@ This package contains developer documentation for ConsoleKit.
 %patch0 -p1 -b .upstart06
 %patch1 -p1 -b .systemd
 %patch2 -p1
+%patch3 -p1
 
 %build
 %configure --with-pid-file=%{_localstatedir}/run/console-kit-daemon.pid --enable-pam-module --with-pam-module-dir=/%{_lib}/security --enable-docbook-docs --docdir=%{_datadir}/doc/%{name}-%{version}
@@ -196,7 +197,7 @@ fi
 
 %changelog
 * Wed Dec 22 2010 build@rnd - 0.4.2-3.rnd
-- rebuilt
+- Patch ck-launch-session for other wm than gdm or kdm
 
 * Wed Nov 17 2010 Lennart Poettering <lpoetter@redhat.com> - 0.4.2-3
 - revert VT_WAITEVENT logic, https://bugzilla.redhat.com/show_bug.cgi?id=643367
