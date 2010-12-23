@@ -39,7 +39,7 @@ install -D -m 644 url-select %{buildroot}/%{_libdir}/urxvt/perl/url-select
 
 
 %changelog
-* Wed Dec 23 2010 build@rnd - 1.4-2
+* Thu Dec 23 2010 build@rnd - 1.4-2
 - Set buildarch to noarch
 
 * Wed Dec 22 2010 build@rnd - 1.4-1
