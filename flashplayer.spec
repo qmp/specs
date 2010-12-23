@@ -8,7 +8,7 @@ License:        Proprietary
 URL:            http://labs.adobe.com/downloads/flashplayer10_square.html
 Source0:        http://download.macromedia.com/pub/labs/flashplayer10/flashplayer10_2_p3_64bit_linux_111710.tar.gz
 
-Requires:       firefox
+Requires:       mozilla-filesystem
 
 %description
 Adobe flash player plugin, 64 bit version

@@ -16,6 +16,7 @@ Source0:        %{name}-%{alphatag}.tar.gz
 
 BuildRequires:  libgnome-keyring-devel
 BuildRequires:  xulrunner-devel
+#Todo : Requires: mozilla-filesystem
 Requires:       firefox
 
 %description
@@ -36,6 +37,7 @@ make build %{?_smp_mflags}
 
 
 %install
+#Todo : install to mozilla filesystem
 install -D -m 644 xpi/install.rdf \
  %{buildroot}/%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
 install -D -m 755 libgnomekeyring.so \
@@ -47,6 +49,7 @@ install -D -m 755 libgnomekeyring.so \
 %files
 %defattr(-,root,root,-)
 %doc README COPYING
+#Todo : Use mozilla filesystem
 %{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
 %{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform
 %{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3
