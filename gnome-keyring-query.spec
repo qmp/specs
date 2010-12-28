@@ -26,7 +26,6 @@ gcc `pkg-config --cflags --libs gnome-keyring-1 glib-2.0` -o %{name} %{name}.c
 install -D -m 755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
