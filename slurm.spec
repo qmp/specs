@@ -38,7 +38,7 @@ install -p -D -m 644 %{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 %doc ChangeLog README KEYS TODO THANKS COPYRIGHT AUTHORS THEMES.txt
 %doc COPYING FAQ INSTALL
 %{_bindir}/%{name}
-%{_mandir}/man1/slurm.1.gz
+%{_mandir}/man1/%{name}.1.gz
 
 %changelog
 * Wed Dec 29 2010 build@rnd - 0.3.3-1
