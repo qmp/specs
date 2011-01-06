@@ -1,3 +1,4 @@
+#TODO: themes
 Summary: A real time network traffic statistic tool
 Name: slurm
 Version: 0.3.3
