@@ -1,8 +1,8 @@
 #Based on http://aur.archlinux.org/packages/firefox-extension-gnome-keyring-git/firefox-extension-gnome-keyring-git/PKGBUILD
 #Source created with :
 #git clone https://github.com/mdlavin/firefox-gnome-keyring.git
-#git archive --prefix=firefox-gnome-keyring/ master | gzip >firefox-extension-gnome-keyring-20101223.tar.gz
-%global alphatag 20101223
+#git archive --prefix=firefox-gnome-keyring/ master | gzip >firefox-extension-gnome-keyring-20110307.tar.gz
+%global alphatag 20110307
 %global gitname firefox-gnome-keyring
 Name:           firefox-extension-gnome-keyring
 Version:        0.4
@@ -59,6 +59,8 @@ install -D -m 755 libgnomekeyring.so \
 
 
 %changelog
+* Mon Mar 07 2011 qmp <glang@lavabit.com> - 0.4-2.20110307git
+- New git snapshot
 * Mon Jan 17 2011 build@rnd - 0.4-2.20101223git
 - Add ownership of the extension's directory
 * Wed Dec 23 2010 build@rnd - 0.4-1.20101223git
