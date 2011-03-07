@@ -5,17 +5,15 @@
 
 Summary: System daemon for tracking users, sessions and seats
 Name: ConsoleKit
-Version: 0.4.2
-Release: 3.rnd%{?dist}
+Version: 0.4.4
+Release: 1.rnd%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 URL: http://www.freedesktop.org/wiki/Software/ConsoleKit
 Source0: http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-%{version}.tar.bz2
 # Convert to new upstart syntax
 Patch0: ConsoleKit-0.4.1-upstart06.patch
-Patch1: 0001-systemd-make-sure-the-file-system-is-writable-before.patch
-Patch2: 0001-Revert-linux-Use-VT_WAITEVENT-if-available-to-avoid-.patch
-Patch3: ck-launch-session-fix.patch
+Patch1: ck-launch-session-fix.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: dbus >= %{dbus_version}
@@ -87,9 +85,7 @@ This package contains developer documentation for ConsoleKit.
 %prep
 %setup -q
 %patch0 -p1 -b .upstart06
-%patch1 -p1 -b .systemd
-%patch2 -p1
-%patch3 -p1
+%patch1 -p1
 
 %build
 %configure --with-pid-file=%{_localstatedir}/run/console-kit-daemon.pid --enable-pam-module --with-pam-module-dir=/%{_lib}/security --enable-docbook-docs --docdir=%{_datadir}/doc/%{name}-%{version}
@@ -141,6 +137,7 @@ fi
 %doc %{_datadir}/doc/%{name}-%{version}/NEWS
 %doc %{_datadir}/doc/%{name}-%{version}/COPYING
 %{_sysconfdir}/dbus-1/system.d/*
+%dir %{_sysconfdir}/init
 %config(noreplace) %{_sysconfdir}/init/*
 %{_datadir}/dbus-1/system-services/*.service
 %{_datadir}/polkit-1/actions/*.policy
@@ -152,7 +149,7 @@ fi
 %dir %{_prefix}/lib/ConsoleKit/scripts
 %dir %{_prefix}/lib/ConsoleKit/run-seat.d
 %dir %{_prefix}/lib/ConsoleKit/run-session.d
-%dir %{_var}/run/ConsoleKit
+%ghost %dir %{_var}/run/ConsoleKit
 %attr(755,root,root) %dir %{_var}/log/ConsoleKit
 %config %{_sysconfdir}/ConsoleKit/seats.d/00-primary.seat
 %{_sbindir}/console-kit-daemon
@@ -171,6 +168,7 @@ fi
 /lib/systemd/system/halt.target.wants/console-kit-log-system-stop.service
 /lib/systemd/system/poweroff.target.wants/console-kit-log-system-stop.service
 /lib/systemd/system/reboot.target.wants/console-kit-log-system-restart.service
+/lib/systemd/system/kexec.target.wants/console-kit-log-system-restart.service
 
 %files x11
 %defattr(-,root,root,-)
@@ -196,11 +194,23 @@ fi
 %doc %{_datadir}/doc/%{name}-%{version}/spec/*
 
 %changelog
-* Wed Dec 22 2010 build@rnd - 0.4.2-3.rnd
-- Patch ck-launch-session for other wm than gdm or kdm
+* Mon Mar 07 2011 qmp <glang@lavabit.com> - 0.4.4-1.rnd
+- Patch1 : allow to use good dms
 
-* Wed Nov 17 2010 Lennart Poettering <lpoetter@redhat.com> - 0.4.2-3
-- revert VT_WAITEVENT logic, https://bugzilla.redhat.com/show_bug.cgi?id=643367
+* Thu Feb 17 2011 Lennart Poettering <lpoetter@redhat.com> - 0.4.4-1
+- New upstream release
+
+* Fri Feb 11 2011 Matthias Clasen <mclasen@redhat.com> - 0.4.3-4
+- Co-own /etc/init directory (#645082)
+
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Fri Jan 28 2011 Matthias Clasen <mclasen@redhat.com> - 0.4.3-2
+- %%ghost /var/run content
+
+* Wed Nov 17 2010 Lennart Poettering <lpoetter@redhat.com> - 0.4.3-1
+- New upstream
 
 * Tue Oct 05 2010 jkeating - 0.4.2-2.1
 - Rebuilt for gcc bug 634757
