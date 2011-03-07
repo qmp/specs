@@ -17,7 +17,8 @@ Source0:        %{name}-%{alphatag}.tar.gz
 BuildRequires:  libgnome-keyring-devel
 BuildRequires:  xulrunner-devel
 #Todo : Requires: mozilla-filesystem
-Requires:       firefox
+Requires:       firefox >= 4
+ExclusiveArch:  x86_64
 
 %description
 This extension replaces the default password manager in both Firefox and
@@ -30,18 +31,22 @@ Firefox or Thunderbird has been started.
 
 %prep
 %setup -q -n %{gitname}
-
+pushd %{_builddir}/%{gitname}/
+rm -rf lib
+popd
 
 %build
-make build %{?_smp_mflags}
+%ifarch x86_64
+make build-library-x86_64 %{?_smp_mflags}
+%endif
 
 
 %install
 #Todo : install to mozilla filesystem
 install -D -m 644 xpi/install.rdf \
- %{buildroot}/%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
-install -D -m 755 libgnomekeyring.so \
- %{buildroot}/%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
+ %{buildroot}/%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
+install -D -m 755 xpi/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so \
+ %{buildroot}/%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
 
 %clean
 
@@ -50,12 +55,12 @@ install -D -m 755 libgnomekeyring.so \
 %defattr(-,root,root,-)
 %doc README COPYING
 #Todo : Use mozilla filesystem
-%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}
-%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
-%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform
-%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3
-%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components
-%{_libdir}/firefox-3.6/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
+%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}
+%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
+%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform
+%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3
+%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components
+%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
 
 
 %changelog
