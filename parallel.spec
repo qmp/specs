@@ -1,12 +1,12 @@
 Name:           parallel
-Version:        20101222
+Version:        20110205
 Release:        1%{?dist}
 Summary:        GNU parallel is a shell tool for executing jobs in parallel
 
 Group:          Applications/System
 License:        GPLv3+
 URL:            http://www.gnu.org/software/parallel/
-Source0:        ftp://ftp.gnu.org/gnu/parallel/parallel-20101222.tar.bz2
+Source0:        ftp://ftp.gnu.org/gnu/parallel/parallel-%{version}.tar.bz2
 
 Requires:       perl
 #name clash : /usr/bin/parallel
@@ -77,5 +77,8 @@ install -D -m 644 README %{buildroot}/%{_defaultdocdir}/%{name}-%{version}/READM
 
 
 %changelog
+* Wed Mar 09 2011 qmp <glang@lavabit.com> 20110205-1
+- New upstream release
+
 * Wed Dec 29 2010 build@rnd - 20101222-1
 - Initial packaging
