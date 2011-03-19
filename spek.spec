@@ -1,4 +1,4 @@
-#Built for rpmfusion-free
+#ffmpeg is available in rpmfusion-free
 Name:           spek
 Version:        0.6
 Release:        1%{?dist}
