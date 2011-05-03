@@ -5,7 +5,7 @@
 
 Summary: System daemon for tracking users, sessions and seats
 Name: ConsoleKit
-Version: 0.4.4
+Version: 0.4.5
 Release: 1.rnd%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
@@ -194,8 +194,11 @@ fi
 %doc %{_datadir}/doc/%{name}-%{version}/spec/*
 
 %changelog
-* Mon Mar 07 2011 qmp <glang@lavabit.com> - 0.4.4-1.rnd
-- Patch1 : allow to use good dms
+* Tue May 3 2011 qmp <glang@lavabit.com> - 0.4.5-1.rnd
+- Patch1 : allow to use other dms
+
+* Tue May  3 2011 Lennart Poettering <lpoetter@redhat.com> - 0.4.5-1
+- New upstream release
 
 * Thu Feb 17 2011 Lennart Poettering <lpoetter@redhat.com> - 0.4.4-1
 - New upstream release
