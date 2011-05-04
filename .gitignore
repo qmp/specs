@@ -6,3 +6,4 @@ rippit.spec
 selinux-policy.spec
 lucidor.spec
 firefox.spec
+postfix.spec
