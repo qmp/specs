@@ -1,6 +1,6 @@
 #ffmpeg is available in rpmfusion-free
 Name:           spek
-Version:        0.6
+Version:        0.7
 Release:        1%{?dist}
 Summary:        Spectrum analyzer
 Group:          Applications/Multimedia
@@ -30,15 +30,17 @@ make DESTDIR=%{buildroot} INSTALL="install -p" CP="cp -p" install
 desktop-file-install \
  --dir=%{buildroot}%{_datadir}/applications \
 %{buildroot}%{_datadir}/applications/%{name}.desktop
+%find_lang %{name}
 
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 #Don't include the empty README
 %doc COPYING AUTHORS NEWS INSTALL
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/*/*/apps/%{name}.*
+%{_mandir}/man1/%{name}.1*
 
 %post
 update-desktop-database &> /dev/null || :
@@ -55,5 +57,8 @@ fi
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Wed May 11 2011 qmp <glang@lavabit.com> - 0.7-1
+- New upstream release
+
 * Tue Sep 21 2010 build@rnd - 0.6-1
 - Initial packaging
