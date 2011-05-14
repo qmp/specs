@@ -1,4 +1,5 @@
 #ignore spec from fedora-awesome repo
+libcgroup.spec
 cairo.spec
 awesome.spec
 gnome-packagekit.spec
