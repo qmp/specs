@@ -1,6 +1,6 @@
 Name:           slim
 Version:        1.3.2
-Release:        4.rnd.2%{?dist}
+Release:        4.rnd.4%{?dist}
 Summary:        Simple Login Manager
 
 Group:          User Interface/X
@@ -15,6 +15,7 @@ Source3:        slim-fedora.txt
 # logrotate entry (see bz#573743)
 Source4:        slim.logrotate.d
 Source6:        slim-dotxinitrc.example
+Source7:        slim.tmpfiles.d
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Fedora-specific patches
@@ -91,6 +92,8 @@ ln -s ../../../backgrounds/tiles/default_blue.jpg $RPM_BUILD_ROOT%{_datadir}/sli
 # install logrotate entry
 install -m0644 -D %{SOURCE4} $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/slim
 
+install -m0644 -D %{SOURCE7} %{buildroot}%{_libdir}/../lib/tmpfiles.d/%{name}.conf
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -101,7 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/slim
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/slim.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/slim
-%ghost %dir %{_localstatedir}/run/slim
+%{_libdir}/../lib/tmpfiles.d/slim.conf
+%ghost %dir %{_var}/run/slim
 %{_bindir}/slim*
 %{_bindir}/update_slim_wmlist
 %{_mandir}/man1/slim*.1*
@@ -110,8 +114,15 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu May 19 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd.4
+- Move tmpfiles.d config to /usr/lib/tmpfiles.d
+
+* Thu May 19 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd.3
+- Write to a xdm_var_run_t labeled directory : /run/slim
+
 * Thu May 19 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd.2
 - Add example file for .xinitrc
+
 * Thu May 19 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd.1
 - Removed /etc/tmpfiles.d/slim.conf
 - Transition from /var/run to /run
