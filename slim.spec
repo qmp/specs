@@ -1,26 +1,26 @@
 Name:           slim
 Version:        1.3.2
-Release:        4.rnd%{?dist}
+Release:        4.rnd.2%{?dist}
 Summary:        Simple Login Manager
 
 Group:          User Interface/X
 License:        GPLv2+
 URL:            http://slim.berlios.de/
 Source0:        http://download.berlios.de/slim/%{name}-%{version}.tar.gz
-# stolen from xdm
-Source1:        %{name}.pam
+# stolen from lxdm
+Source5:        %{name}-lxdm.pam
 # adapted from debian to use freedesktop
 Source2:        slim-update_slim_wmlist
 Source3:        slim-fedora.txt
 # logrotate entry (see bz#573743)
 Source4:        slim.logrotate.d
-Source5:        slim.tmpfiles.d
+Source6:        slim-dotxinitrc.example
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Fedora-specific patches
 Patch0: 01-slim-1.3.2-make.patch
 Patch1: 02-slim-1.3.2-fedora.patch
-Patch2: 03-slim-1.3.1-selinux.patch
+Patch3: 03-slim-1.3.2-var-run_transition.patch
 
 BuildRequires:  libXmu-devel libXft-devel libXrender-devel
 BuildRequires:  libpng-devel libjpeg-devel freetype-devel fontconfig-devel
@@ -50,8 +50,9 @@ before launching slim.
 %setup -q
 %patch0 -p1 -b .make
 %patch1 -p1 -b .fedora
-%patch2 -p1 -b .selinux
+%patch3 -p0 -b .var-run
 cp -p %{SOURCE3} README.Fedora
+cp -p %{SOURCE6} xinitrc.example
 
 %build
 make %{?_smp_mflags} OPTFLAGS="$RPM_OPT_FLAGS" USE_PAM=1
@@ -79,7 +80,7 @@ chmod 0755 $RPM_BUILD_ROOT%{_bindir}/slim-dynwm
 chmod 0644 $RPM_BUILD_ROOT%{_sysconfdir}/slim.conf
 
 install -d -m755 $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
-install -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/slim
+install -p -m644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/slim
 
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/run/slim
 
@@ -90,19 +91,16 @@ ln -s ../../../backgrounds/tiles/default_blue.jpg $RPM_BUILD_ROOT%{_datadir}/sli
 # install logrotate entry
 install -m0644 -D %{SOURCE4} $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/slim
 
-install -m0644 -D %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING ChangeLog README* THEMES TODO
+%doc COPYING ChangeLog README* THEMES TODO xinitrc.example
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/slim
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/slim.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/slim
-%config(noreplace) %{_sysconfdir}/tmpfiles.d/%{name}.conf
 %ghost %dir %{_localstatedir}/run/slim
 %{_bindir}/slim*
 %{_bindir}/update_slim_wmlist
@@ -112,6 +110,19 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu May 19 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd.2
+- Add example file for .xinitrc
+* Thu May 19 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd.1
+- Removed /etc/tmpfiles.d/slim.conf
+- Transition from /var/run to /run
+- Don't listen on tcp socket
+- Stoled pam configuration from lxdm :
+  - Add pam_selinux_permit for auth
+  - Add pam_gnome_keyring
+  - Prevent root login
+  - Add pam_selinux
+  - Add pam_namepace
+
 * Fri May 13 2011 qmp <glang@lavabit.com> - 1.3.2-4.rnd
 - Add /etc/tmpfiles.d/slim.conf
 
