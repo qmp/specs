@@ -8,3 +8,6 @@ lucidor.spec
 firefox.spec
 postfix.spec
 rpmfusion-free-release.spec
+bitcoin.spec
+wxGTK.spec
+firewalld.spec
