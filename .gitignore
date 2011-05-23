@@ -1,7 +1,6 @@
 libcgroup.spec
 cairo.spec
 awesome.spec
-gnome-packagekit.spec
 rippit.spec
 selinux-policy.spec
 lucidor.spec
