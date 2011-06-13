@@ -1,6 +1,6 @@
 Name:           pinpoint
 Version:        0.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple presentation tool
 
 License:        LGPLv2
@@ -10,6 +10,7 @@ Source0:        http://ftp.gnome.org/pub/GNOME/sources/pinpoint/0.1/%{name}-%{ve
 BuildRequires:  clutter-devel
 BuildRequires:  cairo-devel
 BuildRequires:  clutter-gst-devel
+BuildRequires:  librsvg2-devel
 
 %description
 Pinpoint a simple presentation tool that hopes to avoid audience death by bullet
@@ -38,7 +39,7 @@ Features :
 %build
 %configure --enable-pdf=yes\
         --enable-cluttergst=yes\
-        --enable-rsvg=no\
+        --enable-rsvg=yes\
         --enable-dax=no
 make %{?_smp_mflags}
 
@@ -69,5 +70,8 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Mon Jun 13 2011 qmp <glang@lavabit.com> - 0.1.2-2
+- enable rsvg (svg support)
+
 * Sun Jun 12 2011 qmp <glang@lavabit.com> - 0.1.2-1
 - Initial packaging
