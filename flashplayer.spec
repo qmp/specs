@@ -1,16 +1,15 @@
-#fix-flash.sh source : https://bugzilla.redhat.com/attachment.cgi?id=460254&action=edit
 Name:           flashplayer
-Version:        10.2
-Release:        p3.3%{?dist}
+Version:        11.0.1.60
+Release:        0.beta.1%{?dist}
 Summary:        Adobe Flash player plugin
 
 Group:          Applications/Internet
 License:        Proprietary
-URL:            http://labs.adobe.com/downloads/flashplayer10_square.html
-Source0:        http://download.macromedia.com/pub/labs/flashplayer10/flashplayer10_2_p3_64bit_linux_111710.tar.gz
-Patch0:         fix-flash.sh
+URL:            http://labs.adobe.com/downloads/flashplayer11.html
+Source0:        http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_b1_install_lin_64_071311.tar.gz
 ExclusiveArch:  x86_64
 Requires:       mozilla-filesystem
+BuildRequires:  desktop-file-utils
 
 %description
 Adobe flash player plugin, 64 bit version
@@ -18,24 +17,53 @@ Adobe flash player plugin, 64 bit version
 
 %prep
 %setup -q -c %{name}-%{version}
-%{_sourcedir}/fix-flash.sh %{_builddir}/%{name}-%{version}/libflashplayer.so
 
 
 %build
 #nothing to do
 
 %install
-install -D -m 644 libflashplayer.so %{buildroot}/%{_libdir}/mozilla/plugins/libflashplayer.so
+%{__install} -D -m 644 libflashplayer.so %{buildroot}/%{_libdir}/mozilla/plugins/libflashplayer.so
+%{__install} -D -m 755 usr/bin/flash-player-properties %{buildroot}/%{_bindir}/flash-player-properties
+for resolution in {"16x16","22x22","24x24","32x32","48x48"}
+do
+ %{__install} -D -m 644 usr/share/icons/hicolor/${resolution}/apps/flash-player-properties.png \
+  %{buildroot}/%{_datadir}/icons/hicolor/${resolution}/apps/flash-player-properties.png
+done
+
+desktop-file-install \
+ --dir=%{buildroot}%{_datadir}/applications \
+usr/share/applications/flash-player-properties.desktop
 
 %clean
 
 
 %files
 %defattr(-,root,root,-)
+%{_bindir}/flash-player-properties
 %{_libdir}/mozilla/plugins/libflashplayer.so
+%{_datadir}/icons/hicolor/*/apps/flash-player-properties.png
+%{_datadir}/applications/flash-player-properties.desktop
+
+%post
+update-desktop-database &> /dev/null || :
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun
+update-desktop-database &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+  touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+  gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Jul 14 2011 build@rnd - 11.0.1.60-0.beta.1
+- New upstream version
+
 * Mon Dec 27 2010 build@rnd - 10.2-p3.3
 - ExclusiveArch: x86_64
 
