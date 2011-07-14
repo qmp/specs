@@ -2,7 +2,7 @@
 #Source created with :
 #git clone https://github.com/mdlavin/firefox-gnome-keyring.git
 #git archive --prefix=firefox-gnome-keyring/ master | gzip >firefox-extension-gnome-keyring-20110307.tar.gz
-%global alphatag 20110307
+%global alphatag 20110630
 %global gitname firefox-gnome-keyring
 Name:           firefox-extension-gnome-keyring
 Version:        0.5
@@ -18,7 +18,7 @@ Patch0:         %{name}-x86_64.patch
 BuildRequires:  libgnome-keyring-devel
 BuildRequires:  xulrunner-devel
 #Todo : Requires: mozilla-filesystem
-Requires:       firefox >= 4
+Requires:       firefox >= 5
 ExclusiveArch:  x86_64
 
 %description
@@ -32,9 +32,6 @@ Firefox or Thunderbird has been started.
 
 %prep
 %setup -q -n %{gitname}
-pushd %{_builddir}/%{gitname}/
-rm -rf lib
-popd
 %patch0
 
 %build
@@ -46,11 +43,11 @@ make build-library-x86_64 %{?_smp_mflags}
 %install
 #Todo : install to mozilla filesystem
 install -D -m 644 xpi/chrome.manifest \
- %{buildroot}/%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/chrome.manifest
+ %{buildroot}/%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/chrome.manifest
 install -D -m 644 xpi/install.rdf \
- %{buildroot}/%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
+ %{buildroot}/%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
 install -D -m 755 xpi/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so \
- %{buildroot}/%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
+ %{buildroot}/%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
 
 %clean
 
@@ -59,16 +56,18 @@ install -D -m 755 xpi/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so \
 %defattr(-,root,root,-)
 %doc README COPYING
 #Todo : Use mozilla filesystem
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/chrome.manifest
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components
-%{_libdir}/firefox-4/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/chrome.manifest
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/install.rdf
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components
+%{_libdir}/firefox-5/extensions/{6f9d85e0-794d-11dd-ad8b-0800200c9a66}/platform/Linux_x86_64-gcc3/components/libgnomekeyring.so
 
 
 %changelog
+* Thu Jun 30 2011 qmp <glang@lavabit.com> - 0.5-20110630git.1
+- New snapshot compatible with firefox 5
 * Wed Mar 09 2011 qmp <glang@lavabit.com> - 0.5-20110307git.1
 - Include chrome manifest
 - Do not build for the i386 platform
