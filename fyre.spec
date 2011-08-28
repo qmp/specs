@@ -1,5 +1,6 @@
 Name:      fyre
 Summary:   gtk2-based explorer for iterated chaotic functions
+Requires:  OpenEXR
 BuildRequires:  gtk2-devel gnet2-devel OpenEXR-devel libglade2-devel desktop-file-utils
 Version:   1.0.1
 Release:   1%{?dist}
@@ -63,6 +64,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 - Fix license version
 - Add doc
 - Add BuildRequire for libglade2-devel
+- Removed useless explicit require
 
 * Fri Mar 04 2005 Mirco Mueller <macslow@bangang.de> 1.0.0-2
 - stupid me, I totally forgot to enable gnet2 and OpenEXR support
