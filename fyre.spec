@@ -1,6 +1,5 @@
 Name:      fyre
 Summary:   gtk2-based explorer for iterated chaotic functions
-Requires:  gtk2 gnet2 OpenEXR
 BuildRequires:  gtk2-devel gnet2-devel OpenEXR-devel libglade2-devel desktop-file-utils
 Version:   1.0.1
 Release:   1%{?dist}
