@@ -33,6 +33,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %post
 update-desktop-database &> /dev/null || :
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+update-mime-database %{_datadir}/mime || :
 
 %postun
 update-desktop-database &> /dev/null || :
