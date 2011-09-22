@@ -1,12 +1,12 @@
 Name:           flashplayer
-Version:        11.0.1.98
-Release:        0.beta.2%{?dist}
+Version:        11.0.r1.129
+Release:        1%{?dist}
 Summary:        Adobe Flash player plugin
 
 Group:          Applications/Internet
 License:        Proprietary
 URL:            http://labs.adobe.com/downloads/flashplayer11.html
-Source0:        http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_b2_install_lin_64_080811.tar.gz
+Source0:        http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_rc1_install_lin_64_090611.tar.gz
 ExclusiveArch:  x86_64
 Requires:       mozilla-filesystem
 BuildRequires:  desktop-file-utils
@@ -61,6 +61,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Sep 22 2011 build@rnd - 11.0.r1.129
+- New upstream version
+
 * Sun Aug 21 2011 build@rnd - 11.0.1.98-0.beta.2
 - New upstream version
 
