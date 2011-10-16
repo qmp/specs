@@ -1,5 +1,5 @@
 Name:           qmp-release
-Version:        15
+Version:        16
 Release:        1
 Summary:        Configuration files for qmp's repo
 
@@ -37,5 +37,8 @@ suitable for fedora's repos.
 
 
 %changelog
+* Sat Oct 15 2011 qmp <glang@lavabit.com> - 16-1
+- Bump to version 16
+
 * Sun May 15 2011 qmp <glang@lavabit.com> - 15-1
 - Initial packaging
