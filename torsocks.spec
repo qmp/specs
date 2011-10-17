@@ -1,11 +1,12 @@
 Name:           torsocks
 Version:        1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A transparent socks proxy for use with tor
 
 License:        GPLv2
 URL:            http://code.google.com/p/torsocks/
 Source0:        http://torsocks.googlecode.com/files/%{name}-1.1.tar.gz
+Patch0:         torsocks.libdir.patch
 
 %description
 Torsocks allows you to use most socks-friendly applications in a safe way with
@@ -17,6 +18,8 @@ traffic from the application you're using.
 %setup -q
 %ifarch x86_64
 sed -i 's!^libdir = @prefix@/lib/torsocks!libdir = @prefix@/lib64/torsocks!g' src/Makefile.in
+sed -i 's!^libdir = @prefix@/lib/torsocks!libdir = @prefix@/lib64/torsocks!g' src/Makefile.am
+%patch0 -p0
 %endif
 
 
@@ -43,6 +46,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+*Mon Oct 17 2011 qmp <glang@lavabit.com> - 1.1-3
+- Correct libdir
+
 *Mon Oct 17 2011 qmp <glang@lavabit.com> - 1.1-2
 - Correct libdir
 
