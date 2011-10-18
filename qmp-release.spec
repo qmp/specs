@@ -1,6 +1,6 @@
 Name:           qmp-release
 Version:        16
-Release:        1
+Release:        2
 Summary:        Configuration files for qmp's repo
 
 License:        BSD
@@ -37,6 +37,9 @@ suitable for fedora's repos.
 
 
 %changelog
+* Tue Oct 18 2011 qmp <glang@lavabit.com> - 16-2
+- The repository is now disabled by default
+
 * Sat Oct 15 2011 qmp <glang@lavabit.com> - 16-1
 - Bump to version 16
 
