@@ -3,7 +3,7 @@
 %define short_name granite
 Name:           libgranite
 Version:        0
-Release:        r%{revision}.1%{?dist}
+Release:        r%{revision}.2%{?dist}
 Summary:        An extension of GTK
 
 License:        GPLv3
@@ -48,7 +48,10 @@ popd
 %{_libdir}/lib*.so.*
 %{_libdir}/girepository-1.0/Granite-0.1.typelib
 %{_datadir}/%{short_name}/
-%{_datadir}/locale/*/LC_MESSAGES/granite.mo
+%lang(ca) %{_datadir}/locale/ca/LC_MESSAGES/granite.mo
+%lang(en_GB) %{_datadir}/locale/en_GB/LC_MESSAGES/granite.mo
+%lang(es) %{_datadir}/locale/es/LC_MESSAGES/granite.mo
+%lang(it) %{_datadir}/locale/it/LC_MESSAGES/granite.mo
 %{_datadir}/vala/vapi/%{short_name}*
 
 %package devel
@@ -71,5 +74,8 @@ This package contains the header files
 
 
 %changelog
+* Thu Oct 20 2011 qmp <glang@lavabit.com> - 0-r90.2
+- Mark translated files
+
 * Wed Oct 19 2011 qmp <glang@lavabit.com> - 0-r90.1
 - Initial packaging
