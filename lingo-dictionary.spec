@@ -2,12 +2,13 @@
 %define revision 94
 Name:           lingo-dictionary
 Version:        0
-Release:        r%{revision}.2%{?dist}
+Release:        r%{revision}.3%{?dist}
 Summary:        The sexiest dictionary on Earth and Jupiter.
 
 License:        GPLv3
 URL:            http://elementaryos.org/
 Source0:        lingo-dictionary-r%{revision}.tar.bz2
+Patch0:         lingo-dictionary.desktop.patch
 
 BuildRequires:  vala-devel
 BuildRequires:  cmake
@@ -26,8 +27,8 @@ definitions.
 
 %prep
 %setup -q -n %{name}-r%{revision}
-#TODO : patch desktop file ...
-#desktop-file-validate data/lingo.desktop
+%patch0 -p1
+desktop-file-validate data/lingo.desktop
 
 
 %build
@@ -58,6 +59,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Thu Oct 20 2011 qmp <glang@lavabit.com> - 0-r94.3
+- Fix desktop file
+
 * Wed Oct 19 2011 qmp <glang@lavabit.com> - 0-r94.2
 - Compile glib schemas
 
