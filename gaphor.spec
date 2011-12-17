@@ -1,6 +1,6 @@
 Name:           gaphor
 Version:        0.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A UML modelling tool.
 
 License:        GPLv2
@@ -14,6 +14,10 @@ BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  python2-devel
+
+Requires:       python-zope-component
+Requires:       python-etk-docking
+Requires:       python-gaphas
 
 %description
 Gaphor is a UML modelling tool, written in Python. This makes
@@ -53,5 +57,8 @@ update-desktop-database &> /dev/null || :
 
 
 %changelog
+* Sat Dec 17 2011 qmp <glang@lavabit.com> - 0.17.1-2
+- Adds missing "Requires"
+
 * Sat Dec 17 2011 qmp <glang@lavabit.com> - 0.17.1-1
 - Initial packaging
