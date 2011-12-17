@@ -34,9 +34,10 @@ desktop-file-validate %{name}.desktop
 %install
 %{__python} setup.py install --root %{buildroot}
 install -D %{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+%find_lang %{name}
 
 
-%files
+%files -f %{name}.lang
 %doc AUTHORS COPYING FAQ HACKING NEWS README
 %{_bindir}/%{name}
 %{_bindir}/%{name}convert
@@ -48,7 +49,7 @@ install -D %{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 update-desktop-database &> /dev/null || :
 
 %postun
-update-desktop-database &> /dev/null || 
+update-desktop-database &> /dev/null || :
 
 
 %changelog
