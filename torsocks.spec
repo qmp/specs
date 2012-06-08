@@ -1,12 +1,12 @@
 Name:           torsocks
-Version:        1.1
-Release:        4%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        A transparent socks proxy for use with tor
 
 License:        GPLv2
 URL:            http://code.google.com/p/torsocks/
-Source0:        http://torsocks.googlecode.com/files/%{name}-1.1.tar.gz
-Patch0:         torsocks.libdir.patch
+Source0:        http://torsocks.googlecode.com/files/%{name}-%{version}.tar.gz
+Patch0:         torsocks-1.2.libdir.patch
 
 %description
 Torsocks allows you to use most socks-friendly applications in a safe way with
@@ -26,10 +26,11 @@ make %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
+find %{buildroot}/%{_datadir}/ -maxdepth 1 -type f -delete
 
 
 %files
-%doc ChangeLog FAQ COPYING INSTALL README README.TORDNS TODO
+%doc ChangeLog COPYING INSTALL README TODO
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_bindir}/%{name}
 %{_bindir}/usewithtor
@@ -42,6 +43,10 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+*Fri Jun 08 2012 qmp <glang@lavabit.com> - 1.2-1
+- New upstream version
+- Removed libdir patch
+
 *Tue Oct 18 2011 qmp <glang@lavabit.com> - 1.1-4
 - Removed ifarch
 
