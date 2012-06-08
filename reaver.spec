@@ -1,5 +1,5 @@
 Name:           reaver
-Version:        1.3
+Version:        1.4
 Release:        1%{?dist}
 Summary:        Brute force attack against Wifi Protected Setup
 
@@ -40,7 +40,6 @@ popd
 pushd src
 #make install DESTDIR=%{buildroot}
 install -m 644 -D reaver.db %{buildroot}/%{_sysconfdir}/%{name}/reaver.db
-install -m 755 -D walsh %{buildroot}/%{_bindir}/walsh
 install -m 755 -D %{name} %{buildroot}/%{_bindir}/%{name}
 popd
 install -m 644 -D docs/README %{buildroot}/%{_docdir}/%{name}-%{version}/README
@@ -49,7 +48,6 @@ install -m 644 -D docs/%{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 %files
 %{_bindir}/%{name}
-%{_bindir}/walsh
 %{_sysconfdir}/%{name}
 %{_mandir}/man1/reaver.1.gz
 %{_docdir}/%{name}-%{version}
@@ -57,5 +55,9 @@ install -m 644 -D docs/%{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Fri Jun 08 2012 qmp <glang@lavabit.com> - 1.4-1
+- New upstream version
+- Removed "walsh" binary
+
 * Sat Jan 14 2012 qmp <glang@lavabit.com> - 1.3-1
 - Initial packaging

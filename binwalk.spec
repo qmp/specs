@@ -1,11 +1,11 @@
 Name:           binwalk
-Version:        0.4
+Version:        0.4.3
 Release:        1%{?dist}
 Summary:        Firmware analysis tool
 
 License:        MIT
 URL:            https://code.google.com/p/%{name}/
-Source0:        https://%{name}.googlecode.com/files/%{name}-0.4.0.tar.gz
+Source0:        https://%{name}.googlecode.com/files/%{name}-%{version}.tar.gz
 
 BuildRequires:  libcurl-devel
 BuildRequires:  zlib-devel
@@ -23,7 +23,7 @@ filesystems, etc.
 
 
 %prep
-%setup -q -n %{name}-%{version}.0
+%setup -q -n %{name}-%{version}
 
 
 %build
@@ -49,5 +49,8 @@ popd
 
 
 %changelog
+* Fri Jun 08 2012 qmp <glang@lavabit.com> - 0.4.3-1
+- New upstream version
+
 * Sat Nov 26 2011 qmp <glang@lavabit.com> - 0.4-1
 - Initial packaging
