@@ -1,6 +1,6 @@
 Name:           ix
 Version:        0.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Client for the ix.io pastebin
 
 Group:          Applications/Internet
@@ -21,7 +21,7 @@ Client for the ix.io pastebin
 #nothing to do
 
 %install
-install -D -m 755 %{_sourcedir}/client %{buildroot}/%{_bindir}/%{name}
+install -D -m 755 %{SOURCE0} %{buildroot}/%{_bindir}/%{name}
 
 %clean
 
@@ -32,5 +32,11 @@ install -D -m 755 %{_sourcedir}/client %{buildroot}/%{_bindir}/%{name}
 
 
 %changelog
+* Sat Jun 09 2012 qmp <glang@lavabit.com> - 0.4-3
+- Use SOURCE0 instead of _sourcedir
+
+* Fri Jun 08 2012 qmp <glang@lavabit.com> - 0.4-2
+- Rebuild for f17
+
 * Sun Dec 26 2010 build@rnd - 0.4-1
 - Initial packaging
