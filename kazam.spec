@@ -1,21 +1,19 @@
-#snapshot from lp:kazam/stable r100
 #requires x264-libs from rpmfusion
-%define revision r103
-%define branch unstable
 Name:           kazam
-Version:        0
-Release:        %{branch}.%{revision}.1%{?dist}
+Version:        1.3.0
+Release:        2%{?dist}
 Summary:        A screencasting program created with design in mind
 
 License:        GPLv3
 URL:            https://launchpad.net/kazam
-Source0:        kazam-%{version}.%{branch}.%{revision}.tar.bz2
+Source0:        %{name}-%{version}.tar.gz
+Patch0:         kazam.usrmove.patch
 
 BuildArch:      noarch
 BuildRequires:  python-distutils-extra
 BuildRequires:  python2-devel
 BuildRequires:  intltool
-BuildRequires:  desktop-file-utils
+#BuildRequires:  desktop-file-utils
 Requires:       pyxdg
 Requires:       pygtk2
 Requires:       pycairo
@@ -35,31 +33,27 @@ audio playing on your computer and built-in exporting capabilities to
 upload screencasts to popular videosharing websites - such as YouTube.
 
 %prep
-%setup -q -n kazam-%{version}.%{branch}.%{revision}
+%setup -q -n %{name}-%{version}-0ubuntu1
+%patch0 -p1
 
 
 %build
-#%{__python} setup.py build
+%{__python} setup.py build
 
 
 %install
-%{__python} setup.py install --root $RPM_BUILD_ROOT
-%{__rm} -rf %{buildroot}/%{_datadir}/locale/kazam*
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}
+#%{__rm} -rf %{buildroot}/%{_datadir}/locale/kazam*
+# desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
-%find_lang %{name}
 
-%files -f %{name}.lang
-%doc AUTHORS COPYING COPYING.LGPL README TODO VIDEO_STUFF
+%files
+%doc AUTHORS COPYING COPYING.LGPL README TODO
 %{_bindir}/%{name}
 %{_datadir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/*/*/apps/%{name}.*
-%{_datadir}/icons/*/*/apps/youtube.*
-%{_datadir}/icons/*/*/status/%{name}*
-%{python_sitelib}/kazam-0.1-py2.7.egg-info
 %{python_sitelib}/%{name}
+%{python_sitelib}/*egg-info
 
 
 %post
@@ -79,6 +73,13 @@ fi
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Fri Jun 08 2012 qmp <glang@lavabit.com> - 1.3.0-2
+- Fix symlink problem (/bin -> /usr/bin)
+* Fri Jun 08 2012 qmp <glang@lavabit.com> - 1.3.0-1
+- New upstream version
+- Disable check for the desktop file
+- Disable i18n
+
 * Mon Jun 13 2011 qmp <glang@lavabit.com> - 0-unstable.r103.1
 - Add : %{name}.desktop
 - Add : icons
