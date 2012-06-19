@@ -1,6 +1,6 @@
 Name:           awesome-gnome
 Version:        0.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Setup awesome as window manager of GNOME 3
 
 License:        CCPL
@@ -43,5 +43,8 @@ install -D -m 644 %{name}.desktop %{buildroot}/%{_datadir}/xsessions/\
 
 
 %changelog
+* Tue Jun 19 2012 qmp <glang@lavabit.com> - 0.0.1-2
+- Rebuild
+
 * Mon Dec 05 2011 qmp <glang@lavabit.com> - 0.0.1-1
 - Initial packaging
